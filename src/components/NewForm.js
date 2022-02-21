@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReusableForm from './ReusableForm';
 import { useFirestore } from 'react-redux-firebase';
+
 function NewForm(props) {
 
   const [isFormVisible, setFormVisible] = useState(false);
@@ -22,7 +23,8 @@ function NewForm(props) {
 
       {isFormVisible ?
         <div>
-          <ReusableForm formSubmissionHandler={addMemoryToFirestore} />
+          <ReusableForm formSubmissionHandler={addMemoryToFirestore}
+            memory={null} />
           <button onClick={() => setFormVisible(!isFormVisible)}>Cancel</button>
         </div>
         : <button onClick={() => setFormVisible(!isFormVisible)}>Add Memory</button>

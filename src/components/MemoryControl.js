@@ -24,11 +24,11 @@ class MemoryControl extends React.Component {
       };
       this.setState({ selectedMemory: firestoreMemory });
     })
-  }
+  };
 
   handleClick = () => {
     this.setState({ selectedMemory: null });
-  }
+  };
 
   render() {
     let memoryDisplay;
@@ -39,7 +39,9 @@ class MemoryControl extends React.Component {
       </React.Fragment>;
     } else {
       memoryDisplay = <React.Fragment>
-        <MemoryDetail memory={this.state.selectedMemory} onMemoryDelete={this.handleClick} />
+        <MemoryDetail memory={this.state.selectedMemory}
+          onMemoryEdit={this.handleChangingMemorySelection}
+          onMemoryDelete={this.handleClick} />
         <button onClick={this.handleClick}>Back to list</button>
       </React.Fragment>
     }
