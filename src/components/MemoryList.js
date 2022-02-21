@@ -9,7 +9,7 @@ function MemoryList(props) {
     { collection: 'memories' }
   ]);
 
-  const memories = useSelector(state => state.ordered.memories);
+  const memories = useSelector(state => state.firestore.ordered.memories);
 
   if (isLoaded(memories)) {
     return (
