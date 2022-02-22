@@ -3,7 +3,7 @@ import NewForm from './NewForm';
 import MemoryList from './MemoryList';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withFirestore } from 'react-redux-firebase'
+import { withFirestore, isLoaded } from 'react-redux-firebase'
 import MemoryDetail from './MemoryDetail';
 
 class MemoryControl extends React.Component {
@@ -31,25 +31,42 @@ class MemoryControl extends React.Component {
   };
 
   render() {
-    let memoryDisplay;
-    if (this.state.selectedMemory === null) {
-      memoryDisplay = <React.Fragment>
-        <NewForm />
-        <MemoryList onMemorySelection={this.handleChangingMemorySelection} />
-      </React.Fragment>;
-    } else {
-      memoryDisplay = <React.Fragment>
-        <MemoryDetail memory={this.state.selectedMemory}
-          onMemoryEdit={this.handleChangingMemorySelection}
-          onMemoryDelete={this.handleClick} />
-        <button onClick={this.handleClick}>Back to list</button>
-      </React.Fragment>
+    const auth = this.props.firebase.auth();
+    if (!isLoaded(auth)) {
+      return (
+        <React.Fragment>
+          <h1>Loading...</h1>
+        </React.Fragment>
+      );
     }
-    return (
-      <React.Fragment>
-        {memoryDisplay}
-      </React.Fragment>
-    )
+    if ((isLoaded(auth)) && (auth.currentUser == null)) {
+      return (
+        <React.Fragment>
+          <h1>You must be signed in to access memories.</h1>
+        </React.Fragment>
+      );
+    }
+    if (isLoaded(auth) && auth.currentUser != null) {
+      let memoryDisplay;
+      if (this.state.selectedMemory === null) {
+        memoryDisplay = <React.Fragment>
+          <NewForm />
+          <MemoryList onMemorySelection={this.handleChangingMemorySelection} />
+        </React.Fragment>;
+      } else {
+        memoryDisplay = <React.Fragment>
+          <MemoryDetail memory={this.state.selectedMemory}
+            onMemoryEdit={this.handleChangingMemorySelection}
+            onMemoryDelete={this.handleClick} />
+          <button onClick={this.handleClick}>Back to list</button>
+        </React.Fragment>
+      }
+      return (
+        <React.Fragment>
+          {memoryDisplay}
+        </React.Fragment>
+      )
+    }
   }
 }
 
