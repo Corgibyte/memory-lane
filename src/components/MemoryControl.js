@@ -6,6 +6,12 @@ import PropTypes from 'prop-types';
 import { withFirestore, isLoaded } from 'react-redux-firebase'
 import MemoryDetail from './MemoryDetail';
 
+const containerStyle = {
+  margin: "auto",
+  width: "50vw",
+  textAlign: "center"
+};
+
 class MemoryControl extends React.Component {
   constructor(props) {
     super(props);
@@ -41,9 +47,9 @@ class MemoryControl extends React.Component {
     }
     if ((isLoaded(auth)) && (auth.currentUser == null)) {
       return (
-        <React.Fragment>
+        <div style={containerStyle}>
           <h1>You must be signed in to access memories.</h1>
-        </React.Fragment>
+        </div>
       );
     }
     if (isLoaded(auth) && auth.currentUser != null) {
@@ -62,9 +68,9 @@ class MemoryControl extends React.Component {
         </React.Fragment>
       }
       return (
-        <React.Fragment>
+        <div style={containerStyle}>
           {memoryDisplay}
-        </React.Fragment>
+        </div>
       )
     }
   }

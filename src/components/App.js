@@ -6,12 +6,6 @@ import Signup from './Signup';
 import Logout from './Logout';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const containerStyle = {
-  margin: "auto",
-  width: "50vw",
-  textAlign: "center"
-};
-
 function App() {
   return (
     <Router>
