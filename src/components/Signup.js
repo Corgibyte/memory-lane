@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import { useNavigate } from 'react-router-dom';
+
 function Signup() {
   const navigate = useNavigate();
   function doSignUp(event) {
